@@ -60,9 +60,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.5.2")
     kapt("androidx.room:room-compiler:2.5.2")
 
-    // workmananger
-    // Kotlin + coroutines
-    implementation("androidx.work:work-runtime-ktx:2.5.0")
+    // viewmodel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
 
     // dialogx
@@ -70,6 +68,9 @@ dependencies {
     implementation("com.kongzue.dialogx.style:DialogXIOSStyle:0.0.49")
 
     // 农历
-    implementation ("net.time4j:time4j-android:4.8-2021a")
+    implementation("net.time4j:time4j-android:4.8-2021a")
+
+    // mmkv
+    implementation("com.tencent:mmkv-static:1.3.5")
 
 }

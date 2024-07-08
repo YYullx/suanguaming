@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.google.gson.Gson
 import com.kongzue.dialogx.dialogs.PopTip
+import com.tencent.mmkv.MMKV
 import me.yiyou.suanguaming.Gua
 import me.yiyou.suanguaming.MyApplication
 import me.yiyou.suanguaming.R
@@ -27,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     var guaName = ""    // 卦名
     var explain = ""    // 卦义
     var data: Tiku = Tiku(0, "", "", "", "")
+    var mmkv = MMKV.defaultMMKV()
+    var autoAnswer = mmkv.decodeBool("autoAnswer", false)
 
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory((application as MyApplication).repository)
@@ -48,8 +51,12 @@ class MainActivity : AppCompatActivity() {
                 if (name == guaName) {
                     Toast.makeText(this, "恭喜你,答对了！", Toast.LENGTH_SHORT).show()
                     binding.explain.text = explain
-                    generateGua()
-                    binding.name.setText("")
+                    println("autoAnswer:" + autoAnswer)
+                    if (autoAnswer){
+                        generateGua()
+                        binding.name.setText("")
+                        binding.explain.text = ""
+                    }
                 } else {
                     Toast.makeText(this, "很遗憾,回答错误,请重试！", Toast.LENGTH_SHORT).show()
                 }

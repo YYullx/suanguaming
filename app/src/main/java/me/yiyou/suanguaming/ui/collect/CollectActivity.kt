@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.kongzue.dialogx.dialogs.PopTip
+import com.tencent.mmkv.MMKV
 import me.yiyou.suanguaming.MyApplication
 import me.yiyou.suanguaming.R
 import me.yiyou.suanguaming.Tiku
@@ -26,6 +27,8 @@ class CollectActivity : AppCompatActivity() {
     private var explain = ""
     private var name = ""
     private var tiku: Tiku = Tiku(0, "", "", "", "")
+    var mmkv = MMKV.defaultMMKV()
+    var autoAnswer = mmkv.decodeBool("autoAnswer", false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +47,12 @@ class CollectActivity : AppCompatActivity() {
                 if (name == guaName) {
                     Toast.makeText(this, "恭喜你,答对了！", Toast.LENGTH_SHORT).show()
                     binding.explain.text = explain
-                    generateGua()
-                    binding.name.setText("")
+                    println("autoAnswer:" + autoAnswer)
+                    if (autoAnswer){
+                        generateGua()
+                        binding.name.setText("")
+                        binding.explain.text = ""
+                    }
                 } else {
                     Toast.makeText(this, "很遗憾,回答错误,请重试！", Toast.LENGTH_SHORT).show()
                 }

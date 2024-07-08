@@ -11,6 +11,7 @@ import me.yiyou.suanguaming.databinding.ActivityIndexBinding
 import me.yiyou.suanguaming.ui.collect.CollectActivity
 import me.yiyou.suanguaming.ui.meihua.MeiHuaActivity
 import me.yiyou.suanguaming.ui.name.MainActivity
+import me.yiyou.suanguaming.ui.setting.SettingActivity
 
 class IndexActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIndexBinding
@@ -20,17 +21,23 @@ class IndexActivity : AppCompatActivity() {
         binding = ActivityIndexBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        binding.guaming.setOnClickListener{
-            startActivity(Intent(this, MainActivity::class.java))
+        binding.setting.setOnClickListener{
+            startActivity(Intent(this, SettingActivity::class.java))
         }
 
-        binding.collect.setOnClickListener{
-            startActivity(Intent(this, CollectActivity::class.java))
+        binding.guaming.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
 
-        binding.meihuagua.setOnClickListener{
-            startActivity(Intent(this, MeiHuaActivity::class.java))
+        binding.collect.setOnClickListener {
+            val intent = Intent(this, CollectActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.meihuagua.setOnClickListener {
+            val intent = Intent(this, MeiHuaActivity::class.java)
+            startActivity(intent)
         }
     }
 }

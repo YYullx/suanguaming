@@ -7,19 +7,15 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/bagua_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/bagua_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Suanguaming"
         tools:targetApi="31">
         <activity
-            android:name=".ui.meihua.MeiHuaActivity"
+            android:name=".ui.setting.SettingActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.collect.CollectActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Suanguaming" />
         <activity
             android:name=".ui.index.IndexActivity"
             android:exported="true">
@@ -29,6 +25,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.meihua.MeiHuaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.collect.CollectActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.name.MainActivity"
             android:exported="false" />
