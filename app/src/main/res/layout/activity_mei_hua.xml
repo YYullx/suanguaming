@@ -202,7 +202,7 @@
                 android:id="@+id/bianliu"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
-                android:src="@mipmap/yin" />
+                android:src="@mipmap/yang" />
 
             <ImageView
                 android:id="@+id/bianwu"
@@ -220,7 +220,7 @@
                 android:id="@+id/biansan"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
-                android:src="@mipmap/yang" />
+                android:src="@mipmap/yin" />
 
             <ImageView
                 android:id="@+id/bianer"

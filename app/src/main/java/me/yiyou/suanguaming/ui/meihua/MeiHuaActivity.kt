@@ -242,104 +242,102 @@ class MeiHuaActivity : AppCompatActivity() {
     private fun huaHuGua(shanggua1: String, xiagua1: String) {
         when (shanggua1) {
             "乾" -> {
-                binding.liuyao.setImageResource(R.mipmap.yang)
-                binding.wuyao.setImageResource(R.mipmap.yang)
-                binding.siyao.setImageResource(R.mipmap.yang)
+                binding.huliu.setImageResource(R.mipmap.yang)
+                binding.huwu.setImageResource(R.mipmap.yang)
+                binding.husan.setImageResource(R.mipmap.yang)
             }
 
             "兑" -> {
-                binding.liuyao.setImageResource(R.mipmap.yin)
-                binding.wuyao.setImageResource(R.mipmap.yang)
-                binding.siyao.setImageResource(R.mipmap.yang)
+                binding.huliu.setImageResource(R.mipmap.yang)
+                binding.huwu.setImageResource(R.mipmap.yang)
+                binding.husan.setImageResource(R.mipmap.yang)
             }
 
             "离" -> {
-                binding.liuyao.setImageResource(R.mipmap.yang)
-                binding.wuyao.setImageResource(R.mipmap.yin)
-                binding.siyao.setImageResource(R.mipmap.yang)
+                binding.huliu.setImageResource(R.mipmap.yin)
+                binding.huwu.setImageResource(R.mipmap.yang)
+                binding.husan.setImageResource(R.mipmap.yang)
             }
 
             "震" -> {
-                binding.liuyao.setImageResource(R.mipmap.yin)
-                binding.wuyao.setImageResource(R.mipmap.yin)
-                binding.siyao.setImageResource(R.mipmap.yang)
+                binding.huliu.setImageResource(R.mipmap.yin)
+                binding.huwu.setImageResource(R.mipmap.yang)
+                binding.husan.setImageResource(R.mipmap.yang)
             }
 
             "巽" -> {
-                binding.liuyao.setImageResource(R.mipmap.yang)
-                binding.wuyao.setImageResource(R.mipmap.yang)
-                binding.siyao.setImageResource(R.mipmap.yin)
+                binding.huliu.setImageResource(R.mipmap.yang)
+                binding.huwu.setImageResource(R.mipmap.yin)
+                binding.husan.setImageResource(R.mipmap.yin)
             }
 
             "坎" -> {
-                binding.liuyao.setImageResource(R.mipmap.yin)
-                binding.wuyao.setImageResource(R.mipmap.yang)
-                binding.siyao.setImageResource(R.mipmap.yin)
+                binding.huliu.setImageResource(R.mipmap.yang)
+                binding.huwu.setImageResource(R.mipmap.yin)
+                binding.husan.setImageResource(R.mipmap.yin)
             }
 
             "艮" -> {
-                binding.liuyao.setImageResource(R.mipmap.yang)
-                binding.wuyao.setImageResource(R.mipmap.yin)
-                binding.siyao.setImageResource(R.mipmap.yin)
+                binding.huliu.setImageResource(R.mipmap.yin)
+                binding.huwu.setImageResource(R.mipmap.yin)
+                binding.husan.setImageResource(R.mipmap.yin)
             }
 
             "坤" -> {
-                binding.liuyao.setImageResource(R.mipmap.yin)
-                binding.wuyao.setImageResource(R.mipmap.yin)
-                binding.siyao.setImageResource(R.mipmap.yin)
+                binding.huliu.setImageResource(R.mipmap.yin)
+                binding.huwu.setImageResource(R.mipmap.yin)
+                binding.husan.setImageResource(R.mipmap.yin)
             }
         }
-
         when (xiagua1) {
             "乾" -> {
-                binding.sanyao.setImageResource(R.mipmap.yang)
-                binding.eryao.setImageResource(R.mipmap.yang)
-                binding.chuyao.setImageResource(R.mipmap.yang)
+                binding.husi.setImageResource(R.mipmap.yang)
+                binding.huer.setImageResource(R.mipmap.yang)
+                binding.huyi.setImageResource(R.mipmap.yang)
             }
 
             "兑" -> {
-                binding.sanyao.setImageResource(R.mipmap.yin)
-                binding.eryao.setImageResource(R.mipmap.yang)
-                binding.chuyao.setImageResource(R.mipmap.yang)
+                binding.husi.setImageResource(R.mipmap.yin)
+                binding.husan.setImageResource(R.mipmap.yin)
+                binding.huer.setImageResource(R.mipmap.yang)
             }
 
             "离" -> {
-                binding.liuyao.setImageResource(R.mipmap.yang)
-                binding.eryao.setImageResource(R.mipmap.yin)
-                binding.chuyao.setImageResource(R.mipmap.yang)
+                binding.husi.setImageResource(R.mipmap.yin)
+                binding.huer.setImageResource(R.mipmap.yang)
+                binding.huyi.setImageResource(R.mipmap.yin)
             }
 
             "震" -> {
-                binding.sanyao.setImageResource(R.mipmap.yin)
-                binding.eryao.setImageResource(R.mipmap.yin)
-                binding.chuyao.setImageResource(R.mipmap.yang)
+                binding.husi.setImageResource(R.mipmap.yin)
+                binding.huer.setImageResource(R.mipmap.yin)
+                binding.huyi.setImageResource(R.mipmap.yin)
             }
 
             "巽" -> {
-                binding.sanyao.setImageResource(R.mipmap.yang)
-                binding.eryao.setImageResource(R.mipmap.yang)
-                binding.chuyao.setImageResource(R.mipmap.yin)
+                binding.husi.setImageResource(R.mipmap.yang)
+                binding.huer.setImageResource(R.mipmap.yang)
+                binding.huyi.setImageResource(R.mipmap.yang)
             }
 
             "坎" -> {
-                binding.sanyao.setImageResource(R.mipmap.yin)
-                binding.eryao.setImageResource(R.mipmap.yang)
-                binding.chuyao.setImageResource(R.mipmap.yin)
+                binding.husi.setImageResource(R.mipmap.yin)
+                binding.huer.setImageResource(R.mipmap.yin)
+                binding.huyi.setImageResource(R.mipmap.yang)
             }
 
             "艮" -> {
-                binding.sanyao.setImageResource(R.mipmap.yang)
-                binding.eryao.setImageResource(R.mipmap.yin)
-                binding.chuyao.setImageResource(R.mipmap.yin)
+                binding.husi.setImageResource(R.mipmap.yang)
+                binding.huer.setImageResource(R.mipmap.yang)
+                binding.huyi.setImageResource(R.mipmap.yin)
             }
 
             "坤" -> {
-                binding.sanyao.setImageResource(R.mipmap.yin)
-                binding.eryao.setImageResource(R.mipmap.yin)
-                binding.chuyao.setImageResource(R.mipmap.yin)
+                binding.husi.setImageResource(R.mipmap.yin)
+                binding.huer.setImageResource(R.mipmap.yin)
+                binding.huyi.setImageResource(R.mipmap.yin)
             }
         }
-
     }
 
     /**
@@ -355,101 +353,124 @@ class MeiHuaActivity : AppCompatActivity() {
 
         when (shanggua) {
             "乾" -> {
-                binding.huliu.setImageResource(R.mipmap.yang)
-                binding.huwu.setImageResource(R.mipmap.yang)
-                binding.husan.setImageResource(R.mipmap.yang)
+                binding.bianliu.setImageResource(R.mipmap.yang)
+                binding.bianwu.setImageResource(R.mipmap.yang)
+                binding.biansi.setImageResource(R.mipmap.yang)
             }
 
             "兑" -> {
-                binding.huliu.setImageResource(R.mipmap.yang)
-                binding.huwu.setImageResource(R.mipmap.yang)
-                binding.husan.setImageResource(R.mipmap.yang)
+                binding.bianliu.setImageResource(R.mipmap.yin)
+                binding.bianwu.setImageResource(R.mipmap.yang)
+                binding.biansi.setImageResource(R.mipmap.yang)
+                liu = false
             }
 
             "离" -> {
-                binding.huliu.setImageResource(R.mipmap.yin)
-                binding.huwu.setImageResource(R.mipmap.yang)
-                binding.husan.setImageResource(R.mipmap.yang)
+                binding.bianliu.setImageResource(R.mipmap.yang)
+                binding.bianwu.setImageResource(R.mipmap.yin)
+                binding.biansi.setImageResource(R.mipmap.yang)
+                wu = false
             }
 
             "震" -> {
-                binding.huliu.setImageResource(R.mipmap.yin)
-                binding.huwu.setImageResource(R.mipmap.yang)
-                binding.husan.setImageResource(R.mipmap.yang)
+                binding.bianliu.setImageResource(R.mipmap.yin)
+                binding.bianwu.setImageResource(R.mipmap.yin)
+                binding.biansi.setImageResource(R.mipmap.yang)
+                liu = false
+                wu = false
             }
 
             "巽" -> {
-                binding.huliu.setImageResource(R.mipmap.yang)
-                binding.huwu.setImageResource(R.mipmap.yin)
-                binding.husan.setImageResource(R.mipmap.yin)
+                binding.bianliu.setImageResource(R.mipmap.yang)
+                binding.bianwu.setImageResource(R.mipmap.yang)
+                binding.biansi.setImageResource(R.mipmap.yin)
+                si = false
             }
 
             "坎" -> {
-                binding.huliu.setImageResource(R.mipmap.yang)
-                binding.huwu.setImageResource(R.mipmap.yin)
-                binding.husan.setImageResource(R.mipmap.yin)
+                binding.bianliu.setImageResource(R.mipmap.yin)
+                binding.bianwu.setImageResource(R.mipmap.yang)
+                binding.biansi.setImageResource(R.mipmap.yin)
+                liu = false
+                si = false
             }
 
             "艮" -> {
-                binding.huliu.setImageResource(R.mipmap.yin)
-                binding.huwu.setImageResource(R.mipmap.yin)
-                binding.husan.setImageResource(R.mipmap.yin)
+                binding.bianliu.setImageResource(R.mipmap.yang)
+                binding.bianwu.setImageResource(R.mipmap.yin)
+                binding.biansi.setImageResource(R.mipmap.yin)
+                wu = false
+                si = false
             }
 
             "坤" -> {
-                binding.huliu.setImageResource(R.mipmap.yin)
-                binding.huwu.setImageResource(R.mipmap.yin)
-                binding.husan.setImageResource(R.mipmap.yin)
+                binding.bianliu.setImageResource(R.mipmap.yin)
+                binding.bianwu.setImageResource(R.mipmap.yin)
+                binding.biansi.setImageResource(R.mipmap.yin)
+                liu = false
+                wu = false
+                si = false
             }
         }
 
         when (xiagua) {
             "乾" -> {
-                binding.husi.setImageResource(R.mipmap.yang)
-                binding.huer.setImageResource(R.mipmap.yang)
-                binding.huyi.setImageResource(R.mipmap.yang)
+                binding.biansan.setImageResource(R.mipmap.yang)
+                binding.bianer.setImageResource(R.mipmap.yang)
+                binding.bianyi.setImageResource(R.mipmap.yang)
             }
 
             "兑" -> {
-                binding.husi.setImageResource(R.mipmap.yin)
-                binding.husan.setImageResource(R.mipmap.yin)
-                binding.huer.setImageResource(R.mipmap.yang)
+                binding.biansan.setImageResource(R.mipmap.yin)
+                binding.bianer.setImageResource(R.mipmap.yang)
+                binding.bianyi.setImageResource(R.mipmap.yang)
+                san = false
             }
 
             "离" -> {
-                binding.husi.setImageResource(R.mipmap.yin)
-                binding.huer.setImageResource(R.mipmap.yang)
-                binding.huyi.setImageResource(R.mipmap.yin)
+                binding.biansan.setImageResource(R.mipmap.yang)
+                binding.bianer.setImageResource(R.mipmap.yin)
+                binding.bianyi.setImageResource(R.mipmap.yang)
+                er  = false
             }
 
             "震" -> {
-                binding.husi.setImageResource(R.mipmap.yin)
-                binding.huer.setImageResource(R.mipmap.yin)
-                binding.huyi.setImageResource(R.mipmap.yin)
+                binding.biansan.setImageResource(R.mipmap.yin)
+                binding.bianer.setImageResource(R.mipmap.yin)
+                binding.bianyi.setImageResource(R.mipmap.yang)
+                san = false
+                er = false
             }
 
             "巽" -> {
-                binding.husi.setImageResource(R.mipmap.yang)
-                binding.huer.setImageResource(R.mipmap.yang)
-                binding.huyi.setImageResource(R.mipmap.yang)
+                binding.biansan.setImageResource(R.mipmap.yang)
+                binding.bianer.setImageResource(R.mipmap.yang)
+                binding.bianyi.setImageResource(R.mipmap.yin)
             }
 
             "坎" -> {
-                binding.husi.setImageResource(R.mipmap.yin)
-                binding.huer.setImageResource(R.mipmap.yin)
-                binding.huyi.setImageResource(R.mipmap.yang)
+                binding.biansan.setImageResource(R.mipmap.yin)
+                binding.bianer.setImageResource(R.mipmap.yang)
+                binding.bianyi.setImageResource(R.mipmap.yin)
+                san = false
+                yi = false
             }
 
             "艮" -> {
-                binding.husi.setImageResource(R.mipmap.yang)
-                binding.huer.setImageResource(R.mipmap.yang)
-                binding.huyi.setImageResource(R.mipmap.yin)
+                binding.biansan.setImageResource(R.mipmap.yang)
+                binding.bianer.setImageResource(R.mipmap.yin)
+                binding.bianyi.setImageResource(R.mipmap.yin)
+                er = false
+                yi = false
             }
 
             "坤" -> {
-                binding.husi.setImageResource(R.mipmap.yin)
-                binding.huer.setImageResource(R.mipmap.yin)
-                binding.huyi.setImageResource(R.mipmap.yin)
+                binding.biansan.setImageResource(R.mipmap.yin)
+                binding.bianer.setImageResource(R.mipmap.yin)
+                binding.bianyi.setImageResource(R.mipmap.yin)
+                san = false
+                er = false
+                yi = false
             }
         }
 
