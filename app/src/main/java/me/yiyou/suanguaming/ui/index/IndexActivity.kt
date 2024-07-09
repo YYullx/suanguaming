@@ -2,14 +2,11 @@ package me.yiyou.suanguaming.ui.index
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import me.yiyou.suanguaming.R
 import me.yiyou.suanguaming.databinding.ActivityIndexBinding
 import me.yiyou.suanguaming.ui.collect.CollectActivity
 import me.yiyou.suanguaming.ui.meihua.MeiHuaActivity
+import me.yiyou.suanguaming.ui.memory.MemoryActivity
 import me.yiyou.suanguaming.ui.name.MainActivity
 import me.yiyou.suanguaming.ui.setting.SettingActivity
 
@@ -21,7 +18,7 @@ class IndexActivity : AppCompatActivity() {
         binding = ActivityIndexBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.setting.setOnClickListener{
+        binding.setting.setOnClickListener {
             startActivity(Intent(this, SettingActivity::class.java))
         }
 
@@ -38,6 +35,10 @@ class IndexActivity : AppCompatActivity() {
         binding.meihuagua.setOnClickListener {
             val intent = Intent(this, MeiHuaActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.sequentialMemory.setOnClickListener {
+            startActivity(Intent(this, MemoryActivity::class.java))
         }
     }
 }

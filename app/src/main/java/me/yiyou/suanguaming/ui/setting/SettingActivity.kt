@@ -1,7 +1,6 @@
 package me.yiyou.suanguaming.ui.setting
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.tencent.mmkv.MMKV
 import me.yiyou.suanguaming.databinding.ActivitySettingBinding
@@ -29,9 +28,9 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
-        if (mmkv.decodeBool("autoAnswer", false)){
+        if (mmkv.decodeBool("autoAnswer", false)) {
             binding.datiSwitch.isChecked = true
-        }else{
+        } else {
             binding.datiSwitch.isChecked = false
         }
     }

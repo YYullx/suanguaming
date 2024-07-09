@@ -73,4 +73,7 @@ dependencies {
     // mmkv
     implementation("com.tencent:mmkv-static:1.3.5")
 
+    // switch
+    implementation("com.github.zcweng:switch-button:0.0.3@aar")
+
 }

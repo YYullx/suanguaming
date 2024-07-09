@@ -1,18 +1,12 @@
 package me.yiyou.suanguaming.ui.meihua
 
-import android.icu.lang.UCharacter.EastAsianWidth
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import kotlinx.coroutines.android.awaitFrame
 import me.yiyou.suanguaming.R
 import me.yiyou.suanguaming.databinding.ActivityMeiHuaBinding
 import net.time4j.calendar.ChineseCalendar
-import net.time4j.calendar.EastAsianMonth
-import net.time4j.calendar.EastAsianYear
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -431,7 +425,7 @@ class MeiHuaActivity : AppCompatActivity() {
                 binding.biansan.setImageResource(R.mipmap.yang)
                 binding.bianer.setImageResource(R.mipmap.yin)
                 binding.bianyi.setImageResource(R.mipmap.yang)
-                er  = false
+                er = false
             }
 
             "震" -> {

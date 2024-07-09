@@ -48,7 +48,7 @@ class CollectActivity : AppCompatActivity() {
                     Toast.makeText(this, "恭喜你,答对了！", Toast.LENGTH_SHORT).show()
                     binding.explain.text = explain
                     println("autoAnswer:" + autoAnswer)
-                    if (autoAnswer){
+                    if (autoAnswer) {
                         generateGua()
                         binding.name.setText("")
                         binding.explain.text = ""
@@ -73,7 +73,7 @@ class CollectActivity : AppCompatActivity() {
             binding.explain.text = explain
         }
         // 删除
-        binding.icDelete.setOnClickListener{
+        binding.icDelete.setOnClickListener {
             viewModel.delete(tiku)
             PopTip.show("删除成功!");
         }
@@ -81,7 +81,7 @@ class CollectActivity : AppCompatActivity() {
 
     private fun generateGua() {
         viewModel.allTiku.observe(this) { data ->
-            if (data.isNotEmpty()){
+            if (data.isNotEmpty()) {
                 val randomNumber = Random.nextInt(data.size)
                 tiku = data[randomNumber]
 
@@ -93,7 +93,7 @@ class CollectActivity : AppCompatActivity() {
                 binding.xiaImage.isVisible = true
                 binding.shangImage.setImageResource(guaImage(tiku.shang))
                 binding.xiaImage.setImageResource(guaImage(tiku.xia))
-            }else{
+            } else {
                 binding.collectMain.isVisible = false
                 binding.nullText.isVisible = true
             }
