@@ -27,14 +27,24 @@ class MemoryActivity : AppCompatActivity() {
         generateGua(0)
 
         binding.next.setOnClickListener {
-            nextNumber++
+            if (nextNumber < 63) {
+                nextNumber++
 
-            if (nextNumber < 64) {
 //                // 观察ViewModel中的number LiveData
 //                viewModel.updateNumber(nextNumber)
 //                viewModel.number.observe(this, Observer { number ->
 //                    generateGua(number)
 //                })
+                generateGua(nextNumber)
+            } else {
+                nextNumber = 0
+                generateGua(nextNumber)
+            }
+        }
+
+        binding.last.setOnClickListener {
+            if (nextNumber > 0 && nextNumber < 64) {
+                nextNumber--
                 generateGua(nextNumber)
             }
         }
