@@ -28,10 +28,22 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
+        binding.switchButton.setOnCheckedChangeListener({ buttonView, isChecked ->
+            if (isChecked){
+                mmkv.encode("autoAnswer", true)
+                println("switchButton:true")
+            }else{
+                mmkv.encode("autoAnswer", false)
+                println("switchButton:false")
+            }
+        })
+
         if (mmkv.decodeBool("autoAnswer", false)) {
             binding.datiSwitch.isChecked = true
+            binding.switchButton.isChecked = true
         } else {
             binding.datiSwitch.isChecked = false
+            binding.switchButton.isChecked = false
         }
     }
 }
