@@ -14,6 +14,11 @@ class MeiHuaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMeiHuaBinding
     private var dongyao = 0
+    var huShangGua = ""
+    var huXiaGua = ""
+
+    var bianShangGua = ""
+    var bianXiaGua = ""
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,74 +35,28 @@ class MeiHuaActivity : AppCompatActivity() {
         val formatter = DateTimeFormatter.ofPattern("hh")
         val twelveHourFormat = now.format(formatter).toInt()
 
-        val time = conversionTime(twelveHourFormat) // 时辰数
-        val yearFinalValue = finalValueOfTheYear(year)
+        val time = MeiHuaTools.conversionTime(twelveHourFormat) // 时辰数
+        val yearFinalValue = MeiHuaTools.finalValueOfTheYear(year)
 
         qigua(yearFinalValue, month, day, time) //起卦
     }
 
-    /**
-     * 计算农历年份的值
-     */
-    private fun finalValueOfTheYear(year: String): Int {
-        val parts = year.split("-")
-        val parts2 = parts[1].split("(")
-        val value = parts2[0]
-
-        return when (value) {
-            "zi" -> 1
-            "chou" -> 2
-            "yin" -> 3
-            "mao" -> 4
-            "chen" -> 5
-            "si" -> 6
-            "wu" -> 7
-            "wei" -> 8
-            "shen" -> 9
-            "you" -> 10
-            "xu" -> 11
-            "hai" -> 12
-            else -> 0
-        }
-    }
-
-    /**
-     * 获取当前的时辰数
-     */
-    private fun conversionTime(twelveHourFormat: Int): Int {
-        return when (twelveHourFormat) {
-            23, 24, 0 -> 1
-            1, 2 -> 2
-            3, 4 -> 3
-            5, 6 -> 4
-            7, 8 -> 5
-            9, 10 -> 6
-            11, 12 -> 7
-            13, 14 -> 8
-            15, 16 -> 9
-            17, 18 -> 10
-            19, 20 -> 11
-            21, 22 -> 12
-            else -> 0
-        }
-    }
 
     /**
      * 根据年月日时起卦
      */
     private fun qigua(year: Int, month: Int, day: Int, time: Int) {
-        println("年:$year 月:$month 日:$day 时:$time")
-        val shanggua = shanggua(year, month, day)
-        val xiagua = xiagua(year, month, day, time)
-
-        huagua(shanggua, xiagua)  // 渲染ui,画卦
-
+//        println("年:$year 月:$month 日:$day 时:$time")
+        val shanggua = MeiHuaTools.shanggua(year, month, day)
+        val xiagua = MeiHuaTools.xiagua(year, month, day, time)
+        dongyao = (year + month + day + time) % 6   // 求动爻
+        rendingGua(shanggua, xiagua)  // 渲染ui,画卦
     }
 
     /**
      * 渲染ui,画卦
      */
-    private fun huagua(shanggua: String, xiagua: String) {
+    private fun rendingGua(shanggua: String, xiagua: String) {
 
         when (shanggua) {
             "乾" -> {
@@ -234,6 +193,12 @@ class MeiHuaActivity : AppCompatActivity() {
      * 互卦
      */
     private fun huaHuGua(shanggua1: String, xiagua1: String) {
+        var hu6 = true
+        var hu5 = true
+        var hu4 = true
+        var hu3 = true
+        var hu2 = true
+        var hu1 = true
         when (shanggua1) {
             "乾" -> {
                 binding.huliu.setImageResource(R.mipmap.yang)
@@ -251,36 +216,48 @@ class MeiHuaActivity : AppCompatActivity() {
                 binding.huliu.setImageResource(R.mipmap.yin)
                 binding.huwu.setImageResource(R.mipmap.yang)
                 binding.husan.setImageResource(R.mipmap.yang)
+                hu6 = false
             }
 
             "震" -> {
                 binding.huliu.setImageResource(R.mipmap.yin)
                 binding.huwu.setImageResource(R.mipmap.yang)
                 binding.husan.setImageResource(R.mipmap.yang)
+                hu6 = false
             }
 
             "巽" -> {
                 binding.huliu.setImageResource(R.mipmap.yang)
                 binding.huwu.setImageResource(R.mipmap.yin)
                 binding.husan.setImageResource(R.mipmap.yin)
+                hu5 = false
+                hu3 = false
             }
 
             "坎" -> {
                 binding.huliu.setImageResource(R.mipmap.yang)
                 binding.huwu.setImageResource(R.mipmap.yin)
                 binding.husan.setImageResource(R.mipmap.yin)
+                hu5 = false
+                hu3 = false
             }
 
             "艮" -> {
                 binding.huliu.setImageResource(R.mipmap.yin)
                 binding.huwu.setImageResource(R.mipmap.yin)
                 binding.husan.setImageResource(R.mipmap.yin)
+                hu6 = false
+                hu5 = false
+                hu3 = false
             }
 
             "坤" -> {
                 binding.huliu.setImageResource(R.mipmap.yin)
                 binding.huwu.setImageResource(R.mipmap.yin)
                 binding.husan.setImageResource(R.mipmap.yin)
+                hu6 = false
+                hu5 = false
+                hu3 = false
             }
         }
         when (xiagua1) {
@@ -288,24 +265,32 @@ class MeiHuaActivity : AppCompatActivity() {
                 binding.husi.setImageResource(R.mipmap.yang)
                 binding.huer.setImageResource(R.mipmap.yang)
                 binding.huyi.setImageResource(R.mipmap.yang)
+
             }
 
             "兑" -> {
                 binding.husi.setImageResource(R.mipmap.yin)
-                binding.husan.setImageResource(R.mipmap.yin)
-                binding.huer.setImageResource(R.mipmap.yang)
+                binding.huer.setImageResource(R.mipmap.yin)
+                binding.huyi.setImageResource(R.mipmap.yang)
+                hu4 = false
+                hu2 = false
             }
 
             "离" -> {
                 binding.husi.setImageResource(R.mipmap.yin)
                 binding.huer.setImageResource(R.mipmap.yang)
                 binding.huyi.setImageResource(R.mipmap.yin)
+                hu4 = false
+                hu1 = false
             }
 
             "震" -> {
                 binding.husi.setImageResource(R.mipmap.yin)
                 binding.huer.setImageResource(R.mipmap.yin)
                 binding.huyi.setImageResource(R.mipmap.yin)
+                hu4 = false
+                hu2 = false
+                hu1 = false
             }
 
             "巽" -> {
@@ -318,21 +303,32 @@ class MeiHuaActivity : AppCompatActivity() {
                 binding.husi.setImageResource(R.mipmap.yin)
                 binding.huer.setImageResource(R.mipmap.yin)
                 binding.huyi.setImageResource(R.mipmap.yang)
+                hu4 = false
+                hu2 = false
             }
 
             "艮" -> {
                 binding.husi.setImageResource(R.mipmap.yang)
                 binding.huer.setImageResource(R.mipmap.yang)
                 binding.huyi.setImageResource(R.mipmap.yin)
+                hu1 = false
             }
 
             "坤" -> {
                 binding.husi.setImageResource(R.mipmap.yin)
                 binding.huer.setImageResource(R.mipmap.yin)
                 binding.huyi.setImageResource(R.mipmap.yin)
+                hu4 = false
+                hu2 = false
+                hu1 = false
             }
         }
+        
+        huShangGua = MeiHuaTools.judgeGua(hu6,hu5,hu4)   // 判断互卦上下卦
+        huXiaGua = MeiHuaTools.judgeGua(hu3,hu2,hu1)   // 判断互卦上下卦
+        binding.tvHugua.text = "互卦:$huShangGua-$huXiaGua"
     }
+
 
     /**
      * 变卦
@@ -472,91 +468,66 @@ class MeiHuaActivity : AppCompatActivity() {
             0 -> {
                 if (liu) {
                     binding.bianliu.setImageResource(R.mipmap.yin)
+                    liu = false
                 } else {
                     binding.bianliu.setImageResource(R.mipmap.yang)
+                    liu = true
                 }
             }
 
             1 -> {
                 if (yi) {
                     binding.bianyi.setImageResource(R.mipmap.yin)
+                    yi = false
                 } else {
                     binding.bianyi.setImageResource(R.mipmap.yang)
+                    yi =true
                 }
             }
 
             2 -> {
                 if (er) {
                     binding.bianer.setImageResource(R.mipmap.yin)
+                    er = false
                 } else {
                     binding.bianer.setImageResource(R.mipmap.yang)
+                    er = true
                 }
             }
 
             3 -> {
                 if (san) {
                     binding.biansan.setImageResource(R.mipmap.yin)
+                    san = false
                 } else {
                     binding.biansan.setImageResource(R.mipmap.yang)
+                    san = true
                 }
             }
 
             4 -> {
                 if (si) {
                     binding.biansi.setImageResource(R.mipmap.yin)
+                    si = false
                 } else {
                     binding.biansi.setImageResource(R.mipmap.yang)
+                    si = true
                 }
             }
 
             5 -> {
                 if (wu) {
                     binding.bianwu.setImageResource(R.mipmap.yin)
+                    wu = false
                 } else {
                     binding.bianwu.setImageResource(R.mipmap.yang)
+                    wu = true
                 }
             }
         }
+        bianShangGua = MeiHuaTools.judgeGua(liu, wu, si)
+        bianXiaGua = MeiHuaTools.judgeGua(san, er, yi)
+        binding.tvBiangua.text = "变卦:$bianShangGua-$bianXiaGua"
     }
-
-
-    /**
-     * 求上卦
-     */
-    private fun shanggua(year: Int, month: Int, day: Int): String {
-        val shang = (year + month + day) % 8
-        return when (shang) {
-            1 -> "乾"
-            2 -> "兑"
-            3 -> "离"
-            4 -> "震"
-            5 -> "巽"
-            6 -> "坎"
-            7 -> "艮"
-            0 -> "坤"
-            else -> ""
-        }
-    }
-
-    /**
-     * 求下卦
-     */
-    private fun xiagua(year: Int, month: Int, day: Int, time: Int): String {
-        val xia = (year + month + day + time) % 8
-        dongyao = (year + month + day + time) % 6
-
-        return when (xia) {
-            1 -> "乾"
-            2 -> "兑"
-            3 -> "离"
-            4 -> "震"
-            5 -> "巽"
-            6 -> "坎"
-            7 -> "艮"
-            0 -> "坤"
-            else -> ""
-        }
-    }
-
 
 }

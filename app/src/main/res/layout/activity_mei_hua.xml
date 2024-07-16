@@ -242,7 +242,21 @@
         android:id="@+id/tv_bengua"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="时间"
+        android:text=""
+        android:textSize="26sp" />
+
+    <TextView
+        android:id="@+id/tv_hugua"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="26sp" />
+
+    <TextView
+        android:id="@+id/tv_biangua"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
         android:textSize="26sp" />
 
 </LinearLayout>
