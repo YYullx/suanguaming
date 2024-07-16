@@ -18,60 +18,147 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/guaming"
-        android:layout_width="120dp"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/textview_bg"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="64卦名"
-        android:textSize="26sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="120dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <LinearLayout
+            android:id="@+id/meihuagua"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/home_liner"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
 
-    <TextView
-        android:id="@+id/collect"
-        android:layout_width="120dp"
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/icon_meihua" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="梅花起卦"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/guaming"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/home_liner"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/icon_meihua" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="64卦名"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/collect"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/home_liner"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/icon_meihua" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="收藏"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/textview_bg"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="收藏"
-        android:textSize="26sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guaming" />
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
 
-    <TextView
-        android:id="@+id/meihuagua"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/textview_bg"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="梅花起卦"
-        android:textSize="26sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/collect" />
+        <LinearLayout
+            android:id="@+id/sequentialMemory"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/home_liner"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
 
-    <TextView
-        android:id="@+id/sequentialMemory"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/textview_bg"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="顺序记忆"
-        android:textSize="26sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meihuagua" />
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/icon_meihua" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="顺序记忆"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

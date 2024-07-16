@@ -5,5 +5,6 @@
 
     <color name="e2">#E2E2E2</color>
     <color name="mainColor">#5FF12C</color>
+    <color name="lightBlue">#41FBD6</color>
     <color name="transparent">#00000000</color>
 </resources>
