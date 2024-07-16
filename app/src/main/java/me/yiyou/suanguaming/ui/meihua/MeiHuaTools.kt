@@ -95,28 +95,28 @@ class MeiHuaTools {
         fun judgeGua(hu6: Boolean, hu5: Boolean, hu4: Boolean): String {
             var text = ""
             if (hu6 && hu5 && hu4) {
-                text = "乾"
+                text = "乾(金)"
             }
             if (!hu6 && hu5 && hu4) {
-                text = "兑"
+                text = "兑(金)"
             }
             if (hu6 && !hu5 && hu4) {
-                text = "离"
+                text = "离(火)"
             }
             if (!hu6 && !hu5 && hu4) {
-                text = "震"
+                text = "震(木)"
             }
             if (hu6 && hu5 && !hu4) {
-                text = "巽"
+                text = "巽(木)"
             }
             if (!hu6 && hu5 && !hu4) {
-                text = "坎"
+                text = "坎(水)"
             }
-            if (!hu6 && !hu5 && hu4) {
-                text = "艮"
+            if (hu6 && !hu5 && !hu4) {
+                text = "艮(土)"
             }
             if (!hu6 && !hu5 && !hu4) {
-                text = "坤"
+                text = "坤(土)"
             }
             return text
         }

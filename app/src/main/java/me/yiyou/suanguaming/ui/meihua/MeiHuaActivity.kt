@@ -57,6 +57,12 @@ class MeiHuaActivity : AppCompatActivity() {
      * 渲染ui,画卦
      */
     private fun rendingGua(shanggua: String, xiagua: String) {
+        var liu = true
+        var wu = true
+        var si = true
+        var san = true
+        var er = true
+        var yi = true
 
         when (shanggua) {
             "乾" -> {
@@ -69,42 +75,54 @@ class MeiHuaActivity : AppCompatActivity() {
                 binding.liuyao.setImageResource(R.mipmap.yin)
                 binding.wuyao.setImageResource(R.mipmap.yang)
                 binding.siyao.setImageResource(R.mipmap.yang)
+                liu = false
             }
 
             "离" -> {
                 binding.liuyao.setImageResource(R.mipmap.yang)
                 binding.wuyao.setImageResource(R.mipmap.yin)
                 binding.siyao.setImageResource(R.mipmap.yang)
+                wu = false
             }
 
             "震" -> {
                 binding.liuyao.setImageResource(R.mipmap.yin)
                 binding.wuyao.setImageResource(R.mipmap.yin)
                 binding.siyao.setImageResource(R.mipmap.yang)
+                liu = false
+                wu = false
             }
 
             "巽" -> {
                 binding.liuyao.setImageResource(R.mipmap.yang)
                 binding.wuyao.setImageResource(R.mipmap.yang)
                 binding.siyao.setImageResource(R.mipmap.yin)
+                si = false
             }
 
             "坎" -> {
                 binding.liuyao.setImageResource(R.mipmap.yin)
                 binding.wuyao.setImageResource(R.mipmap.yang)
                 binding.siyao.setImageResource(R.mipmap.yin)
+                liu = false
+                si = false
             }
 
             "艮" -> {
                 binding.liuyao.setImageResource(R.mipmap.yang)
                 binding.wuyao.setImageResource(R.mipmap.yin)
                 binding.siyao.setImageResource(R.mipmap.yin)
+                wu = false
+                si = false
             }
 
             "坤" -> {
                 binding.liuyao.setImageResource(R.mipmap.yin)
                 binding.wuyao.setImageResource(R.mipmap.yin)
                 binding.siyao.setImageResource(R.mipmap.yin)
+                liu = false
+                wu = false
+                si = false
             }
         }
 
@@ -119,42 +137,54 @@ class MeiHuaActivity : AppCompatActivity() {
                 binding.sanyao.setImageResource(R.mipmap.yin)
                 binding.eryao.setImageResource(R.mipmap.yang)
                 binding.chuyao.setImageResource(R.mipmap.yang)
+                san = false
             }
 
             "离" -> {
                 binding.liuyao.setImageResource(R.mipmap.yang)
                 binding.eryao.setImageResource(R.mipmap.yin)
                 binding.chuyao.setImageResource(R.mipmap.yang)
+                er = false
             }
 
             "震" -> {
                 binding.sanyao.setImageResource(R.mipmap.yin)
                 binding.eryao.setImageResource(R.mipmap.yin)
                 binding.chuyao.setImageResource(R.mipmap.yang)
+                san = false
+                er = false
             }
 
             "巽" -> {
                 binding.sanyao.setImageResource(R.mipmap.yang)
                 binding.eryao.setImageResource(R.mipmap.yang)
                 binding.chuyao.setImageResource(R.mipmap.yin)
+                yi = false
             }
 
             "坎" -> {
                 binding.sanyao.setImageResource(R.mipmap.yin)
                 binding.eryao.setImageResource(R.mipmap.yang)
                 binding.chuyao.setImageResource(R.mipmap.yin)
+                san = false
+                yi = false
             }
 
             "艮" -> {
                 binding.sanyao.setImageResource(R.mipmap.yang)
                 binding.eryao.setImageResource(R.mipmap.yin)
                 binding.chuyao.setImageResource(R.mipmap.yin)
+                er = false
+                yi = false
             }
 
             "坤" -> {
                 binding.sanyao.setImageResource(R.mipmap.yin)
                 binding.eryao.setImageResource(R.mipmap.yin)
                 binding.chuyao.setImageResource(R.mipmap.yin)
+                san = false
+                er = false
+                yi = false
             }
         }
 
@@ -184,7 +214,9 @@ class MeiHuaActivity : AppCompatActivity() {
             }
         }
 
-        binding.tvBengua.text = "本卦:$shanggua-$xiagua-$dongyao" + "爻动"
+        val shang = MeiHuaTools.judgeGua(liu,wu ,si)
+        val xia  = MeiHuaTools.judgeGua(san, er, yi)
+        binding.tvBengua.text = "本卦:$shang-$xia-$dongyao" + "爻动"
         huaBianGua(shanggua, xiagua, dongyao)   // 变卦
         huaHuGua(shanggua, xiagua)  // 互卦
     }
