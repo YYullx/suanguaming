@@ -47,7 +47,7 @@ class CollectActivity : AppCompatActivity() {
                 if (name == guaName) {
                     Toast.makeText(this, "恭喜你,答对了！", Toast.LENGTH_SHORT).show()
                     binding.explain.text = explain
-                    println("autoAnswer:" + autoAnswer)
+//                    println("autoAnswer:" + autoAnswer)
                     if (autoAnswer) {
                         generateGua()
                         binding.name.setText("")
@@ -58,8 +58,8 @@ class CollectActivity : AppCompatActivity() {
                 }
             } else {
                 Toast.makeText(this, "请输入答案!", Toast.LENGTH_SHORT).show()
-                Log.e("TAG", "错误,输入卦名:" + name)
-                Log.e("TAG", "错误,json卦名:" + guaName)
+//                Log.e("TAG", "错误,输入卦名:" + name)
+//                Log.e("TAG", "错误,json卦名:" + guaName)
             }
         }
         // 下一题

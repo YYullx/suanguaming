@@ -1,6 +1,9 @@
 package me.yiyou.suanguaming.ui.meihua
 
-import me.yiyou.suanguaming.R
+import android.os.Build
+import androidx.annotation.RequiresApi
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MeiHuaTools {
 
@@ -121,5 +124,41 @@ class MeiHuaTools {
             return text
         }
 
+        /**
+         * 就算时辰数
+         */
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun calcHour(): Int {
+            val now = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("hh")
+            val twelveHourFormat = now.format(formatter).toInt()
+            val time = MeiHuaTools.conversionTime(twelveHourFormat) // 时辰数
+            return time
+        }
+
+        /**
+         * 物数起卦法计算上卦数
+         */
+        fun calcShangGua(number: Int):Int {
+            var num = number % 8
+            return num
+        }
+
+        /**
+         * 根据数字求卦
+         */
+        fun qiugua(number: Int): String {
+            return when (number) {
+                1 -> "乾"
+                2 -> "兑"
+                3 -> "离"
+                4 -> "震"
+                5 -> "巽"
+                6 -> "坎"
+                7 -> "艮"
+                0 -> "坤"
+                else -> ""
+            }
+        }
     }
 }
