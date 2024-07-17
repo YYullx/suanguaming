@@ -214,8 +214,8 @@ class MeiHuaActivity : AppCompatActivity() {
             }
         }
 
-        val shang = MeiHuaTools.judgeGua(liu,wu ,si)
-        val xia  = MeiHuaTools.judgeGua(san, er, yi)
+        val shang = MeiHuaTools.judgeGua(liu, wu, si)
+        val xia = MeiHuaTools.judgeGua(san, er, yi)
         binding.tvBengua.text = "本卦:$shang-$xia-$dongyao" + "爻动"
         huaBianGua(shanggua, xiagua, dongyao)   // 变卦
         huaHuGua(shanggua, xiagua)  // 互卦
@@ -355,9 +355,9 @@ class MeiHuaActivity : AppCompatActivity() {
                 hu1 = false
             }
         }
-        
-        huShangGua = MeiHuaTools.judgeGua(hu6,hu5,hu4)   // 判断互卦上下卦
-        huXiaGua = MeiHuaTools.judgeGua(hu3,hu2,hu1)   // 判断互卦上下卦
+
+        huShangGua = MeiHuaTools.judgeGua(hu6, hu5, hu4)   // 判断互卦上下卦
+        huXiaGua = MeiHuaTools.judgeGua(hu3, hu2, hu1)   // 判断互卦上下卦
         binding.tvHugua.text = "互卦:$huShangGua-$huXiaGua"
     }
 
@@ -468,6 +468,7 @@ class MeiHuaActivity : AppCompatActivity() {
                 binding.biansan.setImageResource(R.mipmap.yang)
                 binding.bianer.setImageResource(R.mipmap.yang)
                 binding.bianyi.setImageResource(R.mipmap.yin)
+                yi = false
             }
 
             "坎" -> {
@@ -513,7 +514,7 @@ class MeiHuaActivity : AppCompatActivity() {
                     yi = false
                 } else {
                     binding.bianyi.setImageResource(R.mipmap.yang)
-                    yi =true
+                    yi = true
                 }
             }
 
