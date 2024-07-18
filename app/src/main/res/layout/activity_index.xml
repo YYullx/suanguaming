@@ -172,12 +172,32 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/randomGua"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_weight="1"
-            android:orientation="vertical" />
+            android:background="@drawable/home_liner"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/icon_random" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="随机数起卦"
+                android:textSize="16sp" />
+        </LinearLayout>
 
     </LinearLayout>
 

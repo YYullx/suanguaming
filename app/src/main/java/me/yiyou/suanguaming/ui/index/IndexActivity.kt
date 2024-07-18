@@ -7,6 +7,7 @@ import me.yiyou.suanguaming.databinding.ActivityIndexBinding
 import me.yiyou.suanguaming.ui.collect.CollectActivity
 import me.yiyou.suanguaming.ui.meihua.MeiHuaActivity
 import me.yiyou.suanguaming.ui.meihua.NumberActivity
+import me.yiyou.suanguaming.ui.meihua.RandomActivity
 import me.yiyou.suanguaming.ui.memory.MemoryActivity
 import me.yiyou.suanguaming.ui.name.MainActivity
 import me.yiyou.suanguaming.ui.setting.SettingActivity
@@ -42,8 +43,12 @@ class IndexActivity : AppCompatActivity() {
             startActivity(Intent(this, MemoryActivity::class.java))
         }
 
-        binding.numberQigua.setOnClickListener{
+        binding.numberQigua.setOnClickListener {
             startActivity(Intent(this, NumberActivity::class.java))
+        }
+
+        binding.randomGua.setOnClickListener {
+            startActivity(Intent(this, RandomActivity::class.java))
         }
     }
 }

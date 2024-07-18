@@ -2,70 +2,72 @@ package me.yiyou.suanguaming.ui.meihua
 
 import android.os.Build
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import com.kongzue.dialogx.dialogs.PopTip
 import me.yiyou.suanguaming.R
-import me.yiyou.suanguaming.databinding.ActivityNumberBinding
+import me.yiyou.suanguaming.databinding.ActivityRandomBinding
+import kotlin.random.Random
 
+class RandomActivity : AppCompatActivity() {
 
-class NumberActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityNumberBinding
-    var number = 0
-    var inputNumber = 0
-    var hourNumber = 0
-
+    private lateinit var binding: ActivityRandomBinding
+    var shangNumber = 0
+    var xiaNumber = 0
+    var shang = 0
+    var xia = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityNumberBinding.inflate(layoutInflater)
-
+        binding = ActivityRandomBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             initView()
         }
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initView() {
-        binding.editNumber.addTextChangedListener {
-            val input: String = it.toString().trim() // 去除前后空白
-            if (!TextUtils.isEmpty(input)) {
-                try {
-                    inputNumber = input.toInt()
-                } catch (e: NumberFormatException) {
-                    PopTip.show("请输入大于0的数字!")
-                    e.printStackTrace()
-                }
-            }
-            println("inputNumber:" + inputNumber)
-        }
-        hourNumber = MeiHuaTools.calcHour() // 获取当前时辰数
+        binding.randomShang.setOnClickListener {
+            shangNumber = rendomNumber()
+//            println("shangNumber:$shangNumber")
+            binding.randomShangText.isVisible = true
+            binding.randomShangText.text = shangNumber.toString()
+            shang = shangNumber % 8
 
-        binding.generated.setOnClickListener {
-            if (inputNumber > 0) {
-                number = MeiHuaTools.calcShangGua(inputNumber)  //  计算输入数字得出的上卦
-                binding.linerEditNumber.isVisible = false
-                binding.linerGuaUi.isVisible = true
-                binding.linerExplain.isVisible = true
-                qigua(number, hourNumber)
+        }
+        binding.randomXia.setOnClickListener {
+            xiaNumber = rendomNumber()
+//            println("xiaNumber:$xiaNumber")
+            binding.randomXiaText.isVisible = true
+            binding.randomXiaText.text = xiaNumber.toString()
+            xia = xiaNumber % 8
+        }
+        binding.randomSubmit.setOnClickListener {
+            if (shangNumber != 0 && xiaNumber != 0) {
+                getGua()
+                binding.randomLayout.isVisible = false
+                binding.randomGua.isVisible = true
+                binding.randomExplain.isVisible = true
             } else {
-                PopTip.show("请输入大于0的数字!");
+                PopTip.show("请先生成卦数")
             }
         }
     }
 
-    /**
-     * 本卦
-     */
-    private fun qigua(number: Int, hourNumber: Int) {
-        val shanggua = MeiHuaTools.qiugua(number)
-        val xiagua = MeiHuaTools.qiugua((number + hourNumber) % 8)
-        val dongyao = (number + hourNumber) % 6
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getGua() {
+        val shanggua = MeiHuaTools.calcShangGua(shang)  //  计算输入数字得出的上卦
+        val xiagua = MeiHuaTools.calcShangGua(xia)  //  计算输入数字得出的下卦
+        val hourNumber = MeiHuaTools.calcHour() // 获取当前时辰数
+        qigua(shanggua, xiagua, hourNumber)
+    }
+
+    private fun qigua(shang: Int, xia: Int, hourNumber: Int) {
+        val shanggua = MeiHuaTools.qiugua(shang)
+        val xiagua = MeiHuaTools.qiugua(xia)
+        val dongyao = (shang + xia + hourNumber) % 6
         var liu = true
         var wu = true
         var si = true
@@ -569,5 +571,10 @@ class NumberActivity : AppCompatActivity() {
         val bianShangGua = MeiHuaTools.judgeGua(liu, wu, si)
         val bianXiaGua = MeiHuaTools.judgeGua(san, er, yi)
         binding.tvBiangua.text = "变卦:$bianShangGua-$bianXiaGua"
+    }
+
+    fun rendomNumber(): Int {
+        val randomNumber = Random.nextInt(1, 101)
+        return randomNumber
     }
 }
