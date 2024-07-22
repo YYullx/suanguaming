@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.kongzue.dialogx.dialogs.PopTip
 import me.yiyou.suanguaming.MyApplication
 import me.yiyou.suanguaming.R
 import me.yiyou.suanguaming.databinding.ActivityMeiHuaBinding
@@ -21,7 +22,7 @@ class MeiHuaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMeiHuaBinding
 
-    private val viewModel: MeiHuaViewModel by viewModels{
+    private val viewModel: MeiHuaViewModel by viewModels {
         MeiHuaViewModelFactory((application as MyApplication).repositoryMeiHua)
     }
     private var dongyao = 0
@@ -48,7 +49,7 @@ class MeiHuaActivity : AppCompatActivity() {
 
         val time = MeiHuaTools.conversionTime(twelveHourFormat) // 时辰数
         val yearFinalValue = MeiHuaTools.finalValueOfTheYear(year)
-        
+
         var content = ""
         binding.etInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -64,17 +65,23 @@ class MeiHuaActivity : AppCompatActivity() {
             }
         })
 
-        binding.btSubmit.setOnClickListener{
-            binding.linerInput.isVisible = false
-            binding.guaImage.isVisible = true
-            binding.guaText.isVisible = true
-            qigua(yearFinalValue, month, day, time) //起卦
+        binding.btSubmit.setOnClickListener {
+            if (content.isNullOrEmpty()) {
+                PopTip.show("当前输入为空!")
+                return@setOnClickListener
+            } else {
+                binding.linerInput.isVisible = false
+                binding.guaImage.isVisible = true
+                binding.guaText.isVisible = true
+                qigua(yearFinalValue, month, day, time) //起卦
 
-            val nowtime = LocalDateTime.now()     // 当前时间
+                val nowtime = LocalDateTime.now()     // 当前时间
 
-            // 记录到数据库
-            val data = MeiHuaBean(0, yearFinalValue, month, day, time, nowtime.toString(), content)
-            viewModel.insert(data)
+                // 记录到数据库
+                val data =
+                    MeiHuaBean(0, yearFinalValue, month, day, time, nowtime.toString(), content)
+                viewModel.insert(data)
+            }
         }
     }
 
