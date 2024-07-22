@@ -2,9 +2,12 @@ package me.yiyou.suanguaming.ui.meihua
 
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import me.yiyou.suanguaming.MyApplication
 import me.yiyou.suanguaming.R
 import me.yiyou.suanguaming.databinding.ActivityMeiHuaBinding
@@ -45,14 +48,34 @@ class MeiHuaActivity : AppCompatActivity() {
 
         val time = MeiHuaTools.conversionTime(twelveHourFormat) // 时辰数
         val yearFinalValue = MeiHuaTools.finalValueOfTheYear(year)
+        
+        var content = ""
+        binding.etInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // 在文本改变前不需要处理
+            }
 
-        qigua(yearFinalValue, month, day, time) //起卦
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // 这里通常也不需要处理，因为内容还没有最终确定
+            }
 
-        val nowtime = LocalDateTime.now()     // 当前时间
+            override fun afterTextChanged(s: Editable?) {
+                content = s.toString()
+            }
+        })
 
-        // 记录到数据库
-        val data = MeiHuaBean(0, yearFinalValue, month, day, time, nowtime.toString())
-        viewModel.insert(data)
+        binding.btSubmit.setOnClickListener{
+            binding.linerInput.isVisible = false
+            binding.guaImage.isVisible = true
+            binding.guaText.isVisible = true
+            qigua(yearFinalValue, month, day, time) //起卦
+
+            val nowtime = LocalDateTime.now()     // 当前时间
+
+            // 记录到数据库
+            val data = MeiHuaBean(0, yearFinalValue, month, day, time, nowtime.toString(), content)
+            viewModel.insert(data)
+        }
     }
 
 

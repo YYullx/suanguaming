@@ -41,8 +41,10 @@ class MeiCollectActivity : AppCompatActivity() {
                     val day = data[position].day!!
                     val time = data[position].time!!
                     val nowTime = data[position].nowtime
+                    val tvThing = data[position].content
 
                     binding.tvTime.text = nowTime
+                    binding.tvThing.text = tvThing
                     qigua(year, month, day, time)
                 }
             }else{

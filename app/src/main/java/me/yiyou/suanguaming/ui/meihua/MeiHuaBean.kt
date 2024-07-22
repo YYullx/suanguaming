@@ -22,5 +22,7 @@ data class MeiHuaBean(
     @ColumnInfo(name = "time")
     val time: Int?,
     @ColumnInfo(name = "nowtime")
-    val nowtime: String?
+    val nowtime: String?,
+    @ColumnInfo(name = "content")
+    val content : String?
 ): Parcelable
