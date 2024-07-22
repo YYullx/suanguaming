@@ -5,6 +5,7 @@ import com.kongzue.dialogx.DialogX
 import com.kongzue.dialogx.style.IOSStyle
 import com.tencent.mmkv.MMKV
 import me.yiyou.suanguaming.database.AppDatabase
+import me.yiyou.suanguaming.database.MeiHuaRepository
 import me.yiyou.suanguaming.database.TikuRepository
 import net.time4j.android.ApplicationStarter
 
@@ -15,6 +16,10 @@ class MyApplication : Application() {
     }
     val repository by lazy {
         TikuRepository(database.tikuDao())
+    }
+
+    val repositoryMeiHua by lazy {
+        MeiHuaRepository(database.meihuaDao())
     }
 
     override fun onCreate() {

@@ -1,76 +1,71 @@
 package me.yiyou.suanguaming.ui.meihua
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.kongzue.dialogx.dialogs.PopTip
 import me.yiyou.suanguaming.MyApplication
 import me.yiyou.suanguaming.R
-import me.yiyou.suanguaming.databinding.ActivityMeiHuaBinding
-import me.yiyou.suanguaming.ui.name.MainViewModel
-import me.yiyou.suanguaming.ui.name.MainViewModelFactory
-import net.time4j.calendar.ChineseCalendar
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import me.yiyou.suanguaming.databinding.ActivityMeiCollectBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-class MeiHuaActivity : AppCompatActivity() {
+class MeiCollectActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMeiHuaBinding
-
-    private val viewModel: MeiHuaViewModel by viewModels{
+    private lateinit var binding: ActivityMeiCollectBinding
+    private val viewModel: MeiHuaViewModel by viewModels {
         MeiHuaViewModelFactory((application as MyApplication).repositoryMeiHua)
     }
-    private var dongyao = 0
-    var huShangGua = ""
-    var huXiaGua = ""
+    var position = 0 
 
-    var bianShangGua = ""
-    var bianXiaGua = ""
-
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMeiHuaBinding.inflate(layoutInflater)
+        binding = ActivityMeiCollectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val date = ChineseCalendar.nowInSystemTime()
-        val year = date.year.toString() // 农历年
-        val month = date.month.number   // 农历月
-        val day = date.dayOfMonth   // 农历日
-
-        val now = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("hh")
-        val twelveHourFormat = now.format(formatter).toInt()
-
-        val time = MeiHuaTools.conversionTime(twelveHourFormat) // 时辰数
-        val yearFinalValue = MeiHuaTools.finalValueOfTheYear(year)
-
-        qigua(yearFinalValue, month, day, time) //起卦
-
-        val nowtime = LocalDateTime.now()     // 当前时间
-
-        // 记录到数据库
-        val data = MeiHuaBean(0, yearFinalValue, month, day, time, nowtime.toString())
-        viewModel.insert(data)
+        selectData(position)
+        
+        binding.btnNext.setOnClickListener{
+            position++
+            selectData(position)
+        }
     }
 
+    private fun selectData(position: Int) {
+        viewModel.all.observe(this) { data ->
+            if (data.size > position){
+                if (data.isNotEmpty()) {
+                    val year = data[position].year!!
+                    val month = data[position].month!!
+                    val day = data[position].day!!
+                    val time = data[position].time!!
+                    val nowTime = data[position].nowtime
+
+                    binding.tvTime.text = nowTime
+                    qigua(year, month, day, time)
+                }
+            }else{
+                PopTip.show("没有更多数据了")
+                return@observe
+            }
+        }
+    }
 
     /**
      * 根据年月日时起卦
      */
     private fun qigua(year: Int, month: Int, day: Int, time: Int) {
-//        println("年:$year 月:$month 日:$day 时:$time")
         val shanggua = MeiHuaTools.shanggua(year, month, day)
         val xiagua = MeiHuaTools.xiagua(year, month, day, time)
-        dongyao = (year + month + day + time) % 6   // 求动爻
-        rendingGua(shanggua, xiagua)  // 渲染ui,画卦
+        val dongyao = (year + month + day + time) % 6   // 求动爻
+        rendingGua(shanggua, xiagua, dongyao)  // 渲染ui,画卦
     }
 
     /**
      * 渲染ui,画卦
      */
-    private fun rendingGua(shanggua: String, xiagua: String) {
+    private fun rendingGua(shanggua: String, xiagua: String, dongyao: Int) {
         var liu = true
         var wu = true
         var si = true
@@ -370,8 +365,8 @@ class MeiHuaActivity : AppCompatActivity() {
             }
         }
 
-        huShangGua = MeiHuaTools.judgeGua(hu6, hu5, hu4)   // 判断互卦上下卦
-        huXiaGua = MeiHuaTools.judgeGua(hu3, hu2, hu1)   // 判断互卦上下卦
+        val huShangGua = MeiHuaTools.judgeGua(hu6, hu5, hu4)   // 判断互卦上下卦
+        val huXiaGua = MeiHuaTools.judgeGua(hu3, hu2, hu1)   // 判断互卦上下卦
         binding.tvHugua.text = "互卦:$huShangGua-$huXiaGua"
     }
 
@@ -572,9 +567,8 @@ class MeiHuaActivity : AppCompatActivity() {
                 }
             }
         }
-        bianShangGua = MeiHuaTools.judgeGua(liu, wu, si)
-        bianXiaGua = MeiHuaTools.judgeGua(san, er, yi)
+        val bianShangGua = MeiHuaTools.judgeGua(liu, wu, si)
+        val bianXiaGua = MeiHuaTools.judgeGua(san, er, yi)
         binding.tvBiangua.text = "变卦:$bianShangGua-$bianXiaGua"
     }
-
 }

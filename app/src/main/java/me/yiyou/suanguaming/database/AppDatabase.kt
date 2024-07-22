@@ -5,11 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import me.yiyou.suanguaming.Tiku
+import me.yiyou.suanguaming.ui.meihua.MeiHuaBean
 
 // 数据库创建
-@Database(entities = [Tiku::class], version = 1, exportSchema = false)
+@Database(entities = [Tiku::class, MeiHuaBean::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun tikuDao(): TikuDao
+    abstract fun meihuaDao(): MeiHuaDao
 
     companion object {
         // 单例，防止数据库实例多次创建
