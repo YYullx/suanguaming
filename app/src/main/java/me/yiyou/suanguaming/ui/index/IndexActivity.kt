@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import me.yiyou.suanguaming.databinding.ActivityIndexBinding
+import me.yiyou.suanguaming.tools.StatusBarUtil
 import me.yiyou.suanguaming.ui.collect.CollectActivity
 import me.yiyou.suanguaming.ui.meihua.MeiCollectActivity
 import me.yiyou.suanguaming.ui.meihua.MeiHuaActivity
@@ -21,6 +22,10 @@ class IndexActivity : AppCompatActivity() {
         binding = ActivityIndexBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        // 设置状态栏背景颜色和状态栏字体颜色
+        StatusBarUtil.transparencyBar(this)
+        StatusBarUtil.setFontAndIcon(this)
         // 设置页
         binding.setting.setOnClickListener {
             startActivity(Intent(this, SettingActivity::class.java))

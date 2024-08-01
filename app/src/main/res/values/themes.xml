@@ -5,10 +5,10 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Suanguaming" parent="Base.Theme.Suanguaming">
+    <style name="Theme.Suanguaming" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- 是否要填充顶部的状态栏区域：true是，false否 -->
         <item name="android:windowTranslucentNavigation">true</item>
         <!-- 把状态栏背景颜色设置透明 -->
-        <item name="android:statusBarColor">#5FF12C</item>
+        <item name="android:statusBarColor">@color/transparent</item>
     </style>
 </resources>

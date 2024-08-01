@@ -76,4 +76,8 @@ dependencies {
     // switch
     implementation("com.github.zcweng:switch-button:0.0.3@aar")
 
+    // 标题栏
+    implementation ("com.readystatesoftware.systembartint:systembartint:1.0.3")
+
+
 }
