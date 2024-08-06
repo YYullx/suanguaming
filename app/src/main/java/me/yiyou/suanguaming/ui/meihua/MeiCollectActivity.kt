@@ -1,8 +1,12 @@
 package me.yiyou.suanguaming.ui.meihua
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.kongzue.dialogx.dialogs.PopTip
 import me.yiyou.suanguaming.MyApplication
 import me.yiyou.suanguaming.R
@@ -17,7 +21,7 @@ class MeiCollectActivity : AppCompatActivity() {
     private val viewModel: MeiHuaViewModel by viewModels {
         MeiHuaViewModelFactory((application as MyApplication).repositoryMeiHua)
     }
-    var position = 0 
+    var position = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,34 +29,418 @@ class MeiCollectActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         selectData(position)
-        
-        binding.btnNext.setOnClickListener{
+
+        binding.btnNext.setOnClickListener {
             position++
             selectData(position)
         }
     }
 
+    /**
+     * 还原动爻
+     */
+    fun restoreTheLine() {
+        binding.dongyi.text = ""
+        binding.donger.text = ""
+        binding.dongsan.text = ""
+        binding.dongsi.text = ""
+        binding.dongwu.text = ""
+        binding.dongliu.text = ""
+    }
+
+
+    /**
+     * 根据类型还原挂
+     */
     private fun selectData(position: Int) {
         viewModel.all.observe(this) { data ->
-            if (data.size > position){
+            if (data.size > position) {
                 if (data.isNotEmpty()) {
-                    val year = data[position].year!!
-                    val month = data[position].month!!
-                    val day = data[position].day!!
-                    val time = data[position].time!!
-                    val nowTime = data[position].nowtime
-                    val tvThing = data[position].content
+                    restoreTheLine()
+                    Log.e("type", "selectData: " + data[position].mtype)
+                    when (data[position].mtype) {
+                        1 -> {
+                            val year = data[position].year!!
+                            val month = data[position].month!!
+                            val day = data[position].day!!
+                            val time = data[position].time!!
+                            val nowTime = data[position].nowtime
+                            val tvThing = data[position].content
 
-                    binding.tvTime.text = nowTime
-                    binding.tvThing.text = tvThing
-                    qigua(year, month, day, time)
+                            binding.tvTime.text = nowTime
+                            binding.tvThing.text = tvThing
+                            qigua(year, month, day, time)
+                        }
+
+                        2 -> {
+                            val inputnumber = data[position].inputnumber
+                            val hournumber = data[position].hournumber
+                            qiguaNum(inputnumber!!, hournumber!!)
+                            binding.tvThing.isVisible = false
+                        }
+
+                        3 -> {
+                            binding.tvThing.isVisible = false
+                            val shangnumber = data[position].shangnumber
+                            val xianumber = data[position].xianumber
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                getGua(shangnumber!!, xianumber!!)
+                            }
+                        }
+                    }
                 }
-            }else{
+            } else {
                 PopTip.show("没有更多数据了")
                 return@observe
             }
         }
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getGua(shangnumber: Int, xianumber: Int) {
+        val shanggua = MeiHuaTools.calcShangGua(shangnumber)  //  计算输入数字得出的上卦
+        val xiagua = MeiHuaTools.calcShangGua(xianumber)  //  计算输入数字得出的下卦
+        val hourNumber = MeiHuaTools.calcHour() // 获取当前时辰数
+        qiguaRandom(shanggua, xiagua, hourNumber)
+    }
+
+    private fun qiguaRandom(shang: Int, xia: Int, hourNumber: Int) {
+        val shanggua = MeiHuaTools.qiugua(shang)
+        val xiagua = MeiHuaTools.qiugua(xia)
+        val dongyao = (shang + xia + hourNumber) % 6
+        var liu = true
+        var wu = true
+        var si = true
+        var san = true
+        var er = true
+        var yi = true
+
+        when (shanggua) {
+            "乾" -> {
+                binding.liuyao.setImageResource(R.mipmap.yang)
+                binding.wuyao.setImageResource(R.mipmap.yang)
+                binding.siyao.setImageResource(R.mipmap.yang)
+            }
+
+            "兑" -> {
+                binding.liuyao.setImageResource(R.mipmap.yin)
+                binding.wuyao.setImageResource(R.mipmap.yang)
+                binding.siyao.setImageResource(R.mipmap.yang)
+                liu = false
+            }
+
+            "离" -> {
+                binding.liuyao.setImageResource(R.mipmap.yang)
+                binding.wuyao.setImageResource(R.mipmap.yin)
+                binding.siyao.setImageResource(R.mipmap.yang)
+                wu = false
+            }
+
+            "震" -> {
+                binding.liuyao.setImageResource(R.mipmap.yin)
+                binding.wuyao.setImageResource(R.mipmap.yin)
+                binding.siyao.setImageResource(R.mipmap.yang)
+                liu = false
+                wu = false
+            }
+
+            "巽" -> {
+                binding.liuyao.setImageResource(R.mipmap.yang)
+                binding.wuyao.setImageResource(R.mipmap.yang)
+                binding.siyao.setImageResource(R.mipmap.yin)
+                si = false
+            }
+
+            "坎" -> {
+                binding.liuyao.setImageResource(R.mipmap.yin)
+                binding.wuyao.setImageResource(R.mipmap.yang)
+                binding.siyao.setImageResource(R.mipmap.yin)
+                liu = false
+                si = false
+            }
+
+            "艮" -> {
+                binding.liuyao.setImageResource(R.mipmap.yang)
+                binding.wuyao.setImageResource(R.mipmap.yin)
+                binding.siyao.setImageResource(R.mipmap.yin)
+                wu = false
+                si = false
+            }
+
+            "坤" -> {
+                binding.liuyao.setImageResource(R.mipmap.yin)
+                binding.wuyao.setImageResource(R.mipmap.yin)
+                binding.siyao.setImageResource(R.mipmap.yin)
+                liu = false
+                wu = false
+                si = false
+            }
+        }
+
+        when (xiagua) {
+            "乾" -> {
+                binding.sanyao.setImageResource(R.mipmap.yang)
+                binding.eryao.setImageResource(R.mipmap.yang)
+                binding.chuyao.setImageResource(R.mipmap.yang)
+            }
+
+            "兑" -> {
+                binding.sanyao.setImageResource(R.mipmap.yin)
+                binding.eryao.setImageResource(R.mipmap.yang)
+                binding.chuyao.setImageResource(R.mipmap.yang)
+                san = false
+            }
+
+            "离" -> {
+                binding.liuyao.setImageResource(R.mipmap.yang)
+                binding.eryao.setImageResource(R.mipmap.yin)
+                binding.chuyao.setImageResource(R.mipmap.yang)
+                er = false
+            }
+
+            "震" -> {
+                binding.sanyao.setImageResource(R.mipmap.yin)
+                binding.eryao.setImageResource(R.mipmap.yin)
+                binding.chuyao.setImageResource(R.mipmap.yang)
+                san = false
+                er = false
+            }
+
+            "巽" -> {
+                binding.sanyao.setImageResource(R.mipmap.yang)
+                binding.eryao.setImageResource(R.mipmap.yang)
+                binding.chuyao.setImageResource(R.mipmap.yin)
+                yi = false
+            }
+
+            "坎" -> {
+                binding.sanyao.setImageResource(R.mipmap.yin)
+                binding.eryao.setImageResource(R.mipmap.yang)
+                binding.chuyao.setImageResource(R.mipmap.yin)
+                san = false
+                yi = false
+            }
+
+            "艮" -> {
+                binding.sanyao.setImageResource(R.mipmap.yang)
+                binding.eryao.setImageResource(R.mipmap.yin)
+                binding.chuyao.setImageResource(R.mipmap.yin)
+                er = false
+                yi = false
+            }
+
+            "坤" -> {
+                binding.sanyao.setImageResource(R.mipmap.yin)
+                binding.eryao.setImageResource(R.mipmap.yin)
+                binding.chuyao.setImageResource(R.mipmap.yin)
+                san = false
+                er = false
+                yi = false
+            }
+        }
+
+        when (dongyao) {
+            0 -> {
+                binding.dongliu.text = "○"
+            }
+
+            1 -> {
+                binding.dongyi.text = "○"
+            }
+
+            2 -> {
+                binding.donger.text = "○"
+            }
+
+            3 -> {
+                binding.dongsan.text = "○"
+            }
+
+            4 -> {
+                binding.dongsi.text = "○"
+            }
+
+            5 -> {
+                binding.dongwu.text = "○"
+            }
+        }
+        val shang = MeiHuaTools.judgeGua(liu, wu, si)
+        val xia = MeiHuaTools.judgeGua(san, er, yi)
+        binding.tvBengua.text = "本卦:$shang-$xia-$dongyao" + "爻动"
+        huaBianGua(shanggua, xiagua, dongyao)   // 变卦
+        huaHuGua(shanggua, xiagua)  // 互卦
+    }
+
+    /**
+     * 数字起卦
+     */
+    private fun qiguaNum(number: Int, hourNumber: Int) {
+        val shanggua = MeiHuaTools.qiugua(number)
+        val xiagua = MeiHuaTools.qiugua((number + hourNumber) % 8)
+        val dongyao = (number + hourNumber) % 6
+        var liu = true
+        var wu = true
+        var si = true
+        var san = true
+        var er = true
+        var yi = true
+
+        when (shanggua) {
+            "乾" -> {
+                binding.liuyao.setImageResource(R.mipmap.yang)
+                binding.wuyao.setImageResource(R.mipmap.yang)
+                binding.siyao.setImageResource(R.mipmap.yang)
+            }
+
+            "兑" -> {
+                binding.liuyao.setImageResource(R.mipmap.yin)
+                binding.wuyao.setImageResource(R.mipmap.yang)
+                binding.siyao.setImageResource(R.mipmap.yang)
+                liu = false
+            }
+
+            "离" -> {
+                binding.liuyao.setImageResource(R.mipmap.yang)
+                binding.wuyao.setImageResource(R.mipmap.yin)
+                binding.siyao.setImageResource(R.mipmap.yang)
+                wu = false
+            }
+
+            "震" -> {
+                binding.liuyao.setImageResource(R.mipmap.yin)
+                binding.wuyao.setImageResource(R.mipmap.yin)
+                binding.siyao.setImageResource(R.mipmap.yang)
+                liu = false
+                wu = false
+            }
+
+            "巽" -> {
+                binding.liuyao.setImageResource(R.mipmap.yang)
+                binding.wuyao.setImageResource(R.mipmap.yang)
+                binding.siyao.setImageResource(R.mipmap.yin)
+                si = false
+            }
+
+            "坎" -> {
+                binding.liuyao.setImageResource(R.mipmap.yin)
+                binding.wuyao.setImageResource(R.mipmap.yang)
+                binding.siyao.setImageResource(R.mipmap.yin)
+                liu = false
+                si = false
+            }
+
+            "艮" -> {
+                binding.liuyao.setImageResource(R.mipmap.yang)
+                binding.wuyao.setImageResource(R.mipmap.yin)
+                binding.siyao.setImageResource(R.mipmap.yin)
+                wu = false
+                si = false
+            }
+
+            "坤" -> {
+                binding.liuyao.setImageResource(R.mipmap.yin)
+                binding.wuyao.setImageResource(R.mipmap.yin)
+                binding.siyao.setImageResource(R.mipmap.yin)
+                liu = false
+                wu = false
+                si = false
+            }
+        }
+
+        when (xiagua) {
+            "乾" -> {
+                binding.sanyao.setImageResource(R.mipmap.yang)
+                binding.eryao.setImageResource(R.mipmap.yang)
+                binding.chuyao.setImageResource(R.mipmap.yang)
+            }
+
+            "兑" -> {
+                binding.sanyao.setImageResource(R.mipmap.yin)
+                binding.eryao.setImageResource(R.mipmap.yang)
+                binding.chuyao.setImageResource(R.mipmap.yang)
+                san = false
+            }
+
+            "离" -> {
+                binding.liuyao.setImageResource(R.mipmap.yang)
+                binding.eryao.setImageResource(R.mipmap.yin)
+                binding.chuyao.setImageResource(R.mipmap.yang)
+                er = false
+            }
+
+            "震" -> {
+                binding.sanyao.setImageResource(R.mipmap.yin)
+                binding.eryao.setImageResource(R.mipmap.yin)
+                binding.chuyao.setImageResource(R.mipmap.yang)
+                san = false
+                er = false
+            }
+
+            "巽" -> {
+                binding.sanyao.setImageResource(R.mipmap.yang)
+                binding.eryao.setImageResource(R.mipmap.yang)
+                binding.chuyao.setImageResource(R.mipmap.yin)
+                yi = false
+            }
+
+            "坎" -> {
+                binding.sanyao.setImageResource(R.mipmap.yin)
+                binding.eryao.setImageResource(R.mipmap.yang)
+                binding.chuyao.setImageResource(R.mipmap.yin)
+                san = false
+                yi = false
+            }
+
+            "艮" -> {
+                binding.sanyao.setImageResource(R.mipmap.yang)
+                binding.eryao.setImageResource(R.mipmap.yin)
+                binding.chuyao.setImageResource(R.mipmap.yin)
+                er = false
+                yi = false
+            }
+
+            "坤" -> {
+                binding.sanyao.setImageResource(R.mipmap.yin)
+                binding.eryao.setImageResource(R.mipmap.yin)
+                binding.chuyao.setImageResource(R.mipmap.yin)
+                san = false
+                er = false
+                yi = false
+            }
+        }
+
+        when (dongyao) {
+            0 -> {
+                binding.dongliu.text = "○"
+            }
+
+            1 -> {
+                binding.dongyi.text = "○"
+            }
+
+            2 -> {
+                binding.donger.text = "○"
+            }
+
+            3 -> {
+                binding.dongsan.text = "○"
+            }
+
+            4 -> {
+                binding.dongsi.text = "○"
+            }
+
+            5 -> {
+                binding.dongwu.text = "○"
+            }
+        }
+        val shang = MeiHuaTools.judgeGua(liu, wu, si)
+        val xia = MeiHuaTools.judgeGua(san, er, yi)
+        binding.tvBengua.text = "本卦:$shang-$xia-$dongyao" + "爻动"
+        huaBianGua(shanggua, xiagua, dongyao)   // 变卦
+        huaHuGua(shanggua, xiagua)  // 互卦
+    }
+
 
     /**
      * 根据年月日时起卦

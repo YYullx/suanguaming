@@ -24,5 +24,15 @@ data class MeiHuaBean(
     @ColumnInfo(name = "nowtime")
     val nowtime: String?,
     @ColumnInfo(name = "content")
-    val content : String?
+    val content : String?,
+    @ColumnInfo(name = "type")
+    val mtype : Int?,    // 1 : 年月日时,2 : 报数, 3: 随机
+    @ColumnInfo(name = "inputnumber")
+    val inputnumber : Int?,
+    @ColumnInfo(name = "hournumber")
+    val hournumber : Int?,
+    @ColumnInfo(name = "shangnumber")
+    val shangnumber : Int?,
+    @ColumnInfo(name = "xianumber")
+    val xianumber : Int?,
 ): Parcelable

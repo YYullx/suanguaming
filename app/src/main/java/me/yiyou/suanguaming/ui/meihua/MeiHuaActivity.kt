@@ -79,7 +79,7 @@ class MeiHuaActivity : AppCompatActivity() {
 
                 // 记录到数据库
                 val data =
-                    MeiHuaBean(0, yearFinalValue, month, day, time, nowtime.toString(), content)
+                    MeiHuaBean(0, yearFinalValue, month, day, time, nowtime.toString(), content, 1, null, null, null, null)
                 viewModel.insert(data)
             }
         }

@@ -3,13 +3,16 @@ package me.yiyou.suanguaming.ui.meihua
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import com.kongzue.dialogx.dialogs.PopTip
+import me.yiyou.suanguaming.MyApplication
 import me.yiyou.suanguaming.R
 import me.yiyou.suanguaming.databinding.ActivityNumberBinding
+import java.time.LocalDateTime
 
 
 class NumberActivity : AppCompatActivity() {
@@ -17,6 +20,9 @@ class NumberActivity : AppCompatActivity() {
     var number = 0
     var inputNumber = 0
     var hourNumber = 0
+    private val viewModel: MeiHuaViewModel by viewModels {
+        MeiHuaViewModelFactory((application as MyApplication).repositoryMeiHua)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +59,11 @@ class NumberActivity : AppCompatActivity() {
                 binding.linerGuaUi.isVisible = true
                 binding.linerExplain.isVisible = true
                 qigua(number, hourNumber)
+                val nowtime = LocalDateTime.now()     // 当前时间
+
+                val data =
+                    MeiHuaBean(0, null, null, null, null, nowtime.toString(), null, 2, number, hourNumber, null, null)
+                viewModel.insert(data)
             } else {
                 PopTip.show("请输入大于0的数字!");
             }

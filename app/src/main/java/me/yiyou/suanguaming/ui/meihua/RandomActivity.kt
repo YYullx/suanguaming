@@ -2,17 +2,23 @@ package me.yiyou.suanguaming.ui.meihua
 
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.kongzue.dialogx.dialogs.PopTip
+import me.yiyou.suanguaming.MyApplication
 import me.yiyou.suanguaming.R
 import me.yiyou.suanguaming.databinding.ActivityRandomBinding
+import java.time.LocalDateTime
 import kotlin.random.Random
 
 class RandomActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRandomBinding
+    private val viewModel: MeiHuaViewModel by viewModels {
+        MeiHuaViewModelFactory((application as MyApplication).repositoryMeiHua)
+    }
     var shangNumber = 0
     var xiaNumber = 0
     var shang = 0
@@ -45,8 +51,11 @@ class RandomActivity : AppCompatActivity() {
             xia = xiaNumber % 8
         }
         binding.randomSubmit.setOnClickListener {
+            val nowtime = LocalDateTime.now()     // 当前时间
             if (shangNumber != 0 && xiaNumber != 0) {
-                getGua()
+                getGua(shang, xia)
+                val data = MeiHuaBean(0, null, null, null, null, nowtime.toString(), null, 3, null, null, shangNumber, xiaNumber)
+                viewModel.insert(data)
                 binding.randomLayout.isVisible = false
                 binding.randomGua.isVisible = true
                 binding.randomExplain.isVisible = true
@@ -57,9 +66,9 @@ class RandomActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getGua() {
-        val shanggua = MeiHuaTools.calcShangGua(shang)  //  计算输入数字得出的上卦
-        val xiagua = MeiHuaTools.calcShangGua(xia)  //  计算输入数字得出的下卦
+    fun getGua(shangnumber: Int, xianumber: Int) {
+        val shanggua = MeiHuaTools.calcShangGua(shangnumber)  //  计算输入数字得出的上卦
+        val xiagua = MeiHuaTools.calcShangGua(xianumber)  //  计算输入数字得出的下卦
         val hourNumber = MeiHuaTools.calcHour() // 获取当前时辰数
         qigua(shanggua, xiagua, hourNumber)
     }
