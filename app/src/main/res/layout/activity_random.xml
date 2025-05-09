@@ -9,6 +9,37 @@
 
 
     <LinearLayout
+        android:id="@+id/liner_input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/input_cause"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="请输入占问事:"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_input"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/random_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

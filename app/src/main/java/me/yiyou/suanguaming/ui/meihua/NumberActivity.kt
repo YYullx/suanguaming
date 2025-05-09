@@ -19,6 +19,7 @@ class NumberActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNumberBinding
     var number = 0
     var inputNumber = 0
+    var etInput = ""
     var hourNumber = 0
     private val viewModel: MeiHuaViewModel by viewModels {
         MeiHuaViewModelFactory((application as MyApplication).repositoryMeiHua)
@@ -48,11 +49,15 @@ class NumberActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
             }
-            println("inputNumber:" + inputNumber)
         }
         hourNumber = MeiHuaTools.calcHour() // 获取当前时辰数
 
         binding.generated.setOnClickListener {
+            etInput = binding.etInput.text.toString()
+            if(!etInput.isNotEmpty()){
+                PopTip.show("请输入占问事!")
+                return@setOnClickListener
+            }
             if (inputNumber > 0) {
                 number = MeiHuaTools.calcShangGua(inputNumber)  //  计算输入数字得出的上卦
                 binding.linerEditNumber.isVisible = false
@@ -62,7 +67,7 @@ class NumberActivity : AppCompatActivity() {
                 val nowtime = LocalDateTime.now()     // 当前时间
 
                 val data =
-                    MeiHuaBean(0, null, null, null, null, nowtime.toString(), null, 2, number, hourNumber, null, null)
+                    MeiHuaBean(0, null, null, null, null, nowtime.toString(), etInput, 2, number, hourNumber, null, null)
                 viewModel.insert(data)
             } else {
                 PopTip.show("请输入大于0的数字!");

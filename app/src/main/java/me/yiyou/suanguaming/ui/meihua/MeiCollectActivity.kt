@@ -64,11 +64,8 @@ class MeiCollectActivity : AppCompatActivity() {
                             val month = data[position].month!!
                             val day = data[position].day!!
                             val time = data[position].time!!
-                            val nowTime = data[position].nowtime
-                            val tvThing = data[position].content
-
-                            binding.tvTime.text = nowTime
-                            binding.tvThing.text = tvThing
+                            binding.tvThing.text = data[position].content
+                            binding.tvTime.text = data[position].nowtime
                             qigua(year, month, day, time)
                         }
 
@@ -76,16 +73,18 @@ class MeiCollectActivity : AppCompatActivity() {
                             val inputnumber = data[position].inputnumber
                             val hournumber = data[position].hournumber
                             qiguaNum(inputnumber!!, hournumber!!)
-                            binding.tvThing.isVisible = false
+                            binding.tvThing.text = data[position].content
+                            binding.tvTime.text = data[position].nowtime
                         }
 
                         3 -> {
-                            binding.tvThing.isVisible = false
                             val shangnumber = data[position].shangnumber
                             val xianumber = data[position].xianumber
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                 getGua(shangnumber!!, xianumber!!)
                             }
+//                            binding.tvThing.text = data[position].content
+//                            binding.tvTime.text = data[position].nowtime
                         }
                     }
                 }

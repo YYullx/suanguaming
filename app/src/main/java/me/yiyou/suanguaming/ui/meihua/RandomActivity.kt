@@ -2,6 +2,7 @@ package me.yiyou.suanguaming.ui.meihua
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -23,10 +24,12 @@ class RandomActivity : AppCompatActivity() {
     var xiaNumber = 0
     var shang = 0
     var xia = 0
+    var etInput = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRandomBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.inputCause.isVisible = true
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             initView()
@@ -41,7 +44,6 @@ class RandomActivity : AppCompatActivity() {
             binding.randomShangText.isVisible = true
             binding.randomShangText.text = shangNumber.toString()
             shang = shangNumber % 8
-
         }
         binding.randomXia.setOnClickListener {
             xiaNumber = rendomNumber()
@@ -52,9 +54,16 @@ class RandomActivity : AppCompatActivity() {
         }
         binding.randomSubmit.setOnClickListener {
             val nowtime = LocalDateTime.now()     // 当前时间
+            etInput = binding.etInput.text.toString()
+
+            if(etInput.isEmpty()){
+                PopTip.show("请输入占问事!")
+                return@setOnClickListener
+            }
             if (shangNumber != 0 && xiaNumber != 0) {
+                binding.inputCause.isVisible = false
                 getGua(shang, xia)
-                val data = MeiHuaBean(0, null, null, null, null, nowtime.toString(), null, 3, null, null, shangNumber, xiaNumber)
+                val data = MeiHuaBean(0, null, null, null, null, nowtime.toString(), etInput, 3, null, null, shangNumber, xiaNumber)
                 viewModel.insert(data)
                 binding.randomLayout.isVisible = false
                 binding.randomGua.isVisible = true
