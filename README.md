@@ -10,4 +10,10 @@
 梅花起卦方法,参考的书籍,代码书写过程中可能也有问题,如发现欢迎指正
 
 
+### 项目部分截图
+<img src="./assets/1.png" alt="image" style="zoom:50%;" />
+<img src="./assets/2.png" alt="image" style="zoom:50%;" />
+<img src="./assets/3.jpg" alt="image" style="zoom:50%;" />
+
+
 
