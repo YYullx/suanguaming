@@ -15,19 +15,6 @@ class SettingActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.datiSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            // 判断Switch的状态
-            if (isChecked) {
-                // Switch被打开时执行的操作
-                mmkv.encode("autoAnswer", true)
-                println("autoAnswer:true")
-            } else {
-                // Switch被关闭时执行的操作
-                mmkv.encode("autoAnswer", false)
-                println("autoAnswer:false")
-            }
-        }
-
         binding.switchButton.setOnCheckedChangeListener({ buttonView, isChecked ->
             if (isChecked){
                 mmkv.encode("autoAnswer", true)
@@ -39,10 +26,8 @@ class SettingActivity : AppCompatActivity() {
         })
 
         if (mmkv.decodeBool("autoAnswer", false)) {
-            binding.datiSwitch.isChecked = true
             binding.switchButton.isChecked = true
         } else {
-            binding.datiSwitch.isChecked = false
             binding.switchButton.isChecked = false
         }
     }
