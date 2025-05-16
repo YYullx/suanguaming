@@ -185,7 +185,7 @@ class MeiHuaActivity : AppCompatActivity() {
             }
 
             "离" -> {
-                binding.liuyao.setImageResource(R.mipmap.yang)
+                binding.sanyao.setImageResource(R.mipmap.yang)
                 binding.eryao.setImageResource(R.mipmap.yin)
                 binding.chuyao.setImageResource(R.mipmap.yang)
                 er = false
@@ -353,10 +353,9 @@ class MeiHuaActivity : AppCompatActivity() {
             }
 
             "离" -> {
-                binding.husi.setImageResource(R.mipmap.yin)
+                binding.husi.setImageResource(R.mipmap.yang)
                 binding.huer.setImageResource(R.mipmap.yang)
                 binding.huyi.setImageResource(R.mipmap.yin)
-                hu4 = false
                 hu1 = false
             }
 
